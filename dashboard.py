@@ -18,8 +18,11 @@ sys.path.append("src")
 
 if st.sidebar.button("Run"):
     with st.spinner("Running strategies..."):
-        result, equity_curves = compare_strategies(ticker, start, end)
+        result, equity_curves, price = compare_strategies(ticker, start, end)
         st.dataframe(result)
         st.line_chart(equity_curves)
+
+        st.subheader("Stock Price")
+        st.line_chart(price)
         
 

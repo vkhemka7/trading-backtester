@@ -2,7 +2,7 @@ import numpy as np
 
 def run_backtest(data, signal, transaction_cost=0.001):
 
-    data = data.dropna()
+    data = data.copy().dropna()
 
     #strategy brain
     data['Signal'] = signal

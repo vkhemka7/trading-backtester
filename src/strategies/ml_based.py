@@ -35,9 +35,10 @@ def generate_ml_signals(data):
         predictions = model.predict(X_test)
         all_predictions.append((X_test.index, predictions))
 
-        rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+        rf_model = RandomForestClassifier(n_estimators=50, random_state=42, min_samples_leaf=5, max_depth=5)
         rf_model.fit(X_train, Y_train)
-        rf_predictions = rf_model.predict(X_test)
+        rf_proba = rf_model.predict_proba(X_test)[:, 1]
+        rf_predictions = (rf_proba > 0.5).astype(int)
         all_rf_predictions.append((X_test.index, rf_predictions))
 
 

@@ -9,9 +9,9 @@ import yfinance as yf
 import pandas as pd
 
 def compare_strategies(stock, start, end):
-    warmup_start = str(int(start[:4]) - 10) + start[4:]
+    warmup_start = str(int(start[:4]) - 20) + start[4:]
     full_data = get_data(stock, warmup_start, end)
-    if full_data is None:
+    if full_data is None or len(full_data) < 252:
         return None
     full_data = calculate_indicators(full_data)
     
@@ -68,7 +68,7 @@ def compare_strategies(stock, start, end):
         'Random Forest': rml_result['Cumulative Strategy Returns']
     })
     
-    return pd.DataFrame(results), equity_curves
+    return pd.DataFrame(results), equity_curves, analysis_data['Close']
     
     
 if __name__ == "__main__":
